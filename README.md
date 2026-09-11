@@ -55,7 +55,8 @@ I am going to use the required technologies in the following ways.
     + making a guess
     + retrieving a game board
     + retrieving users' stats
-- **DB/Login** - Stores users, games, and users stats (wins and losses) in database. Register and login users. Credentials securely stored in database. Can't play or join a game unless authenticated
+    + displaying ship names as pokemon names and displaying their associated images using the https://pokeapi.co/api/v2/pokemon/pikachu service.
+- **DB/Login** - Stores authentication information, users, games, and users stats (wins and losses) in database. Register and login users. Credentials securely stored in database. Can't play or join a game unless authenticated
 - **WebSocket** - When a user makes a guess, their guess is broadcast to the other user (their opponent) with the result of their guess. 
 
 ## 🚀 Specification Deliverable
