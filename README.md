@@ -43,8 +43,14 @@ I am going to use the required technologies in the following ways.
 
 - **HTML** - Uses the correct HTML structure for the app. There will be three HTML pages - one is for logging in, one is for playing, and the last is for the scores.
 - **CSS** - Styling for the app that will look good on varying screen sizes - for mobile and computer, has good and consistent color schemes and good white space
-- **React** - Provides the login, the game board display, playing the game, displaying users' scores (your own and others), backend endpoint calls. 
-- **Service** - Description here
+- **React** - Provides the login, the game board display, playing the game, displaying users' scores (your own and others), backend endpoint calls. It will be a single page application with component views and reactivity to user input and actions.
+- **Service** - Backend service with endpoints for:
+    + register
+    + login
+    + retrieving games
+    + making a guess
+    + retrieving a game board
+    + retrieving users' stats
 - **DB/Login** - Description here
 - **WebSocket** - Description here
 
