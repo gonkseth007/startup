@@ -33,9 +33,12 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Login Securely over HTTPS
+- Display of current games
+- Ability to create or join a game
+- Ability to place ships and make guesses
+- Top users stats displayed for all other users in realtime
+- Wins and Losses are persistently stored in database
 
 ### Technologies
 
