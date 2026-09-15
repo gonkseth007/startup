@@ -16,10 +16,15 @@ I love web programming
 ## AWS
 
 The IP address for my server is 184.193.191.160
-The site can be accessed here -> http://184.193.191.160/
+The site can be accessed here using the ip address -> http://184.193.191.160/
+My domain name can also access the site. The name is battleshipcs260.click and can be accessed with http://battleshipcs260.click/
 
 The commmand to ssh into my server (while in my cs260 folder) is 
 ssh -i KeyPairAwsThingy/production.pem ubuntu@184.193.191.160
+or
+ssh -i KeyPairAwsThingy/production.pem ubuntu@battleshipcs260.click
+
+Update Caddyfile with my site domain name to make site secure!
 
 ## HTML
 
