@@ -15,7 +15,11 @@ I love web programming
 
 ## AWS
 
-Interesting things I have learned about AWS
+The IP address for my server is 184.193.191.160
+The site can be accessed here -> http://184.193.191.160/
+
+The commmand to ssh into my server (while in my cs260 folder) is 
+ssh -i KeyPairAwsThingy/production.pem ubuntu@184.193.191.160
 
 ## HTML
 
