@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Battleship</title>
+        <title>Battleship Online!</title>
     </head>
     <body>
         <header>
@@ -13,17 +13,34 @@
         <nav aria-label="Navigation">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="play.html">Play</a></li>
-                <li><a href="scores.html">Scores</a></li>
+                <li><a href="play.html">Play Game</a></li>
+                <li><a href="scores.html">High Scores</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </nav>
 
         <main id="content">
-            <h2 id="welcome">Welcome to Battleship!</h2>
+            <h1 id="welcome">Welcome to Battleship!</h2>
+            <form method="get" action="play.html">
+                <h3>Login or Register</h3>
+                <div>
+                    <span>Username:</span>
+                    <input type="text" placeholder="your@email.com" />
+                </div>
+                <div>
+                    <span>Password:&nbsp;</span>
+                    <input type="password" placeholder="password" />
+                </div>
+                <button type="submit">Login</button>
+                <button type="submit">Register</button>
+            </form>
         </main>
 
         <footer>
+            <hr />
+            <span>Seth Hilton</span>
+            <br />
+            <a href="https://github.com/gonkseth007/startup">GitHub</a>
         </footer>
     </body>
 </html>
