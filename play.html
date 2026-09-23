@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokemon Battleship!</title>
+        <link rel="icon" href="images/favicon.ico" />
+    </head>
+    <body>
+        <header>
+            <h1>Pokemon Battleship!</h1>
+        </header>
+
+        <nav aria-label="Navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="play.html">Play Game</a></li>
+                <li><a href="stats_scores.html">Stats & Scores</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <hr />
+        </nav>
+
+        <main id="content">
+            <h3>Available Games</h3>
+            <table>
+                <tr>
+                    <th>Game Name</th>
+                    <th>Host Player</th>
+                    <th>Join Game</th>
+                </tr>
+                <tr>
+                    <td>My Game</td>
+                    <td>John</td>
+                    <td><button>Join</button></td>
+                </tr>
+                <tr>
+                    <td>Coolio Game</td>
+                    <td>Cool Guy</td>
+                    <td><button>Join</button></td>
+                </tr>
+            </table>
+            
+            <hr />
+
+            <div>Opponent: MisterMan</div>
+            <br />
+
+            <span>Your Score: 0000</span>
+            <span>Opponent's Score: 0000</span>
+            <br /><br />
+
+            <div>Turn: Yours (GoldenGonk007)</div>
+
+            <hr />
+
+            <div>
+                <!--3rd Party API Call Implemented With Pokemon Images As Boats-->
+                <table>
+                <!--Number Row for Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span></span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>1</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>2</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>3</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>4</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>5</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>6</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>7</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>8</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>9</span>
+                    </div>
+                    </th>
+                    <th>
+                    <div height="25" width="25">
+                        <span>10</span>
+                    </div>
+                    </th>
+                </tr>
+                <!--Row A of Board-->
+                <tr>
+                    <th>
+                    <div>
+                        <span>A</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row B of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>B</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row C of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>C</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row D of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>D</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row E of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>E</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row F of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>F</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row G of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>G</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row H of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>H</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row I of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>I</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                <!--Row J of Board-->
+                <tr>
+                    <th>
+                    <div height="25" width="25">
+                        <span>J</span>
+                    </div>
+                    </th>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                    <td>
+                    <button>
+                        <svg aria-hidden="true" viewBox="0 0 100 100" height="25" width="25">
+                        </svg>
+                    </button>
+                    </td>
+                </tr>
+                </table>
+            </div>
+
+            <!-- Websocket placeholder -->
+            <br />
+            <div>It is MisterMan's turn.</div>
+            <div>MisterMan guessed E6 - Miss!</div>
+            <div>It is GoldenGonk007's turn.</div>
+            <br />
+
+            <div>
+                <span>Guess:</span>
+                <input type="text" placeholder="A4" />
+                <button>Make Guess</button>
+                <button>Surrender</button>
+            </div>
+        </main>
+
+        <footer>
+            <hr />
+            <span>Seth Hilton</span>
+            <br />
+            <a href="https://github.com/gonkseth007/startup">GitHub</a>
+        </footer>
+    </body>
+</html>
