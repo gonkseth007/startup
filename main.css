@@ -1,0 +1,19 @@
+.btn-primary {
+  --bs-btn-bg: #b4e6ee;          /* Custom Background */
+  --bs-btn-border-color: #297383;  /* Custom Border */
+  --bs-btn-color: #cd7b29;
+  
+  --bs-btn-hover-bg: #8bc5cd;    /* Custom Hover States */
+  --bs-btn-hover-border-color: #297383;
+  --bs-btn-hover-color: #cd7b29;
+  --bs-btn-active-bg: #8bc5cd;
+}
+
+.text-primary {
+  --bs-text-opacity: 1;
+  color: rgba(111, 66, 193, var(--bs-text-opacity)) !important; /* Custom text color */
+}
+
+.body-primary {
+    background-color: #ffe69c;
+}
