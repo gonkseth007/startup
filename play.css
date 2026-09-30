@@ -19,6 +19,13 @@ td {
     border-color: black;
 }
 
+
+.game-table-row-alt {
+    border-width: 1px;
+    border-color: black;
+    background-color: #8bc5cd;
+}
+
 .game-table-block {
     /* border-left-width: 1px;
     border-right-width: 1px; */
@@ -29,4 +36,9 @@ td {
 .guess {
     display: flex;
     flex-direction: row !important;
+}
+
+.btn {
+  white-space: nowrap;
+  width: max-content;
 }
