@@ -4,6 +4,7 @@ header {
   flex: 0 80px;
   display: flex;
   color: #ffffff;
+  font-family: 'Cabin', sans-serif;
 }
 
 footer {
@@ -16,12 +17,14 @@ footer {
   padding-top: 10px;
   padding-bottom: 10px;
   color: #ffffff;
+  font-family: 'Cabin', sans-serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-width: 375px;
+  font-family: 'Cabin', sans-serif;
 }
 
 main {
