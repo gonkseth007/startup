@@ -1,0 +1,17 @@
+.table-row {
+    border-width: 1px;
+    border-color: black;
+}
+
+.table-row-alt {
+    border-width: 1px;
+    border-color: black;
+    background-color: #8bc5cd;
+}
+
+.table-cell {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: black;
+    padding: 10px
+}

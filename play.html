@@ -2,42 +2,44 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pokemon Battleship!</title>
         <link rel="icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="main.css" rel="stylesheet">
+        <link href="play.css" rel="stylesheet">
+        <title>Pokemon Battleship!</title>
     </head>
-    <body>
-        <header>
-            <h1>Pokemon Battleship!</h1>
+    <body class="body-primary">
+        <header class="container-fluid">
+            <nav class="navbar navbar-dark" aria-label="Navigation">
+                <h4>Pokemon Battleship</h4>
+                <menu class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="play.html">Play Game</a></li>
+                    <li class="nav-item"><a class="nav-link" href="stats_scores.html">Stats & Scores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                </menu>
+                <hr />
+            </nav>
         </header>
 
-        <nav aria-label="Navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="play.html">Play Game</a></li>
-                <li><a href="stats_scores.html">Stats & Scores</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-            <hr />
-        </nav>
-
-        <main id="content">
-            <h3>Available Games</h3>
+        <main class="container-fluid text-center" id="content">
+            <h3 class="my-2">Available Games</h3>
             <table>
-                <tr>
-                    <th>Game Name</th>
-                    <th>Host Player</th>
-                    <th>Join Game</th>
+                <tr class="game-table-row-alt">
+                    <th class="game-table-block">Game Name</th>
+                    <th class="game-table-block">Host Player</th>
+                    <th class="game-table-block">Join Game</th>
                 </tr>
-                <tr>
-                    <td>My Game</td>
-                    <td>John</td>
-                    <td><button>Join</button></td>
+                <tr class="game-table-row">
+                    <td class="game-table-block">My Game</td>
+                    <td class="game-table-block">John</td>
+                    <td class="game-table-block"><button class="btn btn-primary">Join</button></td>
                 </tr>
-                <tr>
-                    <td>Coolio Game</td>
-                    <td>Cool Guy</td>
-                    <td><button>Join</button></td>
+                <tr class="game-table-row-alt">
+                    <td class="game-table-block">Coolio Game</td>
+                    <td class="game-table-block">Cool Guy</td>
+                    <td class="game-table-block"><button class="btn btn-primary">Join</button></td>
                 </tr>
             </table>
             
@@ -45,10 +47,11 @@
 
             <div>Opponent: MisterMan</div>
             <br />
-
-            <span>Your Score: 0000</span>
-            <span>Opponent's Score: 0000</span>
-            <br /><br />
+            <div>
+                <span class="mx-3">Your Score: 0000</span>
+                <span>Opponent's Score: 0000</span>
+            </div>
+            <br />
 
             <div>Turn: Yours (GoldenGonk007)</div>
 
@@ -805,19 +808,22 @@
             <div>It is GoldenGonk007's turn.</div>
             <br />
 
-            <div>
-                <span>Guess:</span>
-                <input type="text" placeholder="A4" />
-                <button>Make Guess</button>
-                <button>Surrender</button>
+            <div class="mb-3 guess">
+                <div class="input-group m-3">
+                    <span class="input-group-text">Guess:</span>
+                    <input class="form-control rounded-end" type="text" placeholder="E4" />
+                </div>
+                <button class="btn btn-primary m-3 mx-2">Make Guess</button>
+                <button class="btn btn-primary m-3 mx-2">Surrender</button>
             </div>
         </main>
 
         <footer>
-            <hr />
-            <span>Seth Hilton</span>
-            <br />
-            <a href="https://github.com/gonkseth007/startup">GitHub</a>
+            <div>
+                <span class="text-reset">Seth Hilton</span>
+            </div>
+            <a class="text-reset" href="https://github.com/gonkseth007/startup">GitHub</a>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

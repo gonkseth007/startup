@@ -4,8 +4,8 @@ This file represents what I have learned about web programming. (not much thus f
 
 I love web programming
 
-- [My startup](https://startup.cs260.click)
-- [My simon](https://simon.cs260.click)
+- [My startup](https://startup.battleshipcs260.click)
+- [My simon](https://simon.battleshipcs260.click)
 
 ## Helpful links
 
@@ -26,9 +26,9 @@ ssh -i KeyPairAwsThingy/production.pem ubuntu@battleshipcs260.click
 
 Update Caddyfile with my site domain name to make site secure!
 
-## HTML
+## HTML & CSS
 
-Interesting things I have learned about HTML
+- Tailwind is more customizable, but steeper learning curve, while bootstrap is less customizable but has more presets
 
 ## React
 
