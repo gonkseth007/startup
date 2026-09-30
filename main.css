@@ -1,12 +1,83 @@
-.btn-primary {
-  --bs-btn-bg: #b4e6ee;          /* Custom Background */
-  --bs-btn-border-color: #297383;  /* Custom Border */
-  --bs-btn-color: #cd7b29;
+header {
+  background-color: #297383;
+  align-items: center;
+  flex: 0 80px;
+  display: flex;
+  color: #ffffff;
+}
+
+footer {
+  display: flex;
+  flex: 0 30px;
+  justify-content: space-between;
+  background-color: #297383;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-width: 375px;
+}
+
+main {
+  flex: 1 calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+menu {
+  flex: 1;
+  display: flex;
+  /*  overwrite Bootstrap so the menu does not wrap */
+  flex-direction: row !important;
+  list-style: none;
+  align-items: center !important;
   
-  --bs-btn-hover-bg: #8bc5cd;    /* Custom Hover States */
-  --bs-btn-hover-border-color: #297383;
-  --bs-btn-hover-color: #cd7b29;
-  --bs-btn-active-bg: #8bc5cd;
+  justify-content: center;
+  padding: 0 !important; 
+  margin: 0;
+  width: 100%;
+}
+
+.navbar-brand {
+  display: flex;
+  padding-left: 0.3em;
+  border-bottom: solid rgb(182, 182, 182) thin;
+  align-items: center;
+}
+
+menu .nav-item {
+  padding: 0 0.4em;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  padding: 0 !important; 
+  margin: 0;
+}
+
+h4 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.btn-primary {
+  --bs-btn-bg: #ffe69c;          /* Custom Background */
+  --bs-btn-border-color: #cd7b29;  /* Custom Border */
+  --bs-btn-color: #297383;
+  
+  --bs-btn-hover-bg: #ffd56a;    /* Custom Hover States */
+  --bs-btn-hover-border-color: #cd7b29;
+  --bs-btn-hover-color: #297383;
+  --bs-btn-active-bg: #ffd56a;
 }
 
 .text-primary {
@@ -15,5 +86,5 @@
 }
 
 .body-primary {
-    background-color: #ffe69c;
+    background-color: #b4e6ee;
 }
