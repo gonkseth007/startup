@@ -1,0 +1,11 @@
+.table-row {
+    border-width: 1px;
+    border-color: black;
+}
+
+.table-cell {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: black;
+    padding: 10px
+}
