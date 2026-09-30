@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="main.css" rel="stylesheet">
+        <link href="play.css" rel="stylesheet">
         <title>Pokemon Battleship!</title>
     </head>
     <body class="body-primary">
@@ -23,22 +24,22 @@
         </header>
 
         <main class="container-fluid text-center" id="content">
-            <h3>Available Games</h3>
+            <h3 class="my-2">Available Games</h3>
             <table>
-                <tr>
-                    <th>Game Name</th>
-                    <th>Host Player</th>
-                    <th>Join Game</th>
+                <tr class="game-table-row">
+                    <th class="game-table-block">Game Name</th>
+                    <th class="game-table-block">Host Player</th>
+                    <th class="game-table-block">Join Game</th>
                 </tr>
-                <tr>
-                    <td>My Game</td>
-                    <td>John</td>
-                    <td><button>Join</button></td>
+                <tr class="game-table-row">
+                    <td class="game-table-block">My Game</td>
+                    <td class="game-table-block">John</td>
+                    <td class="game-table-block"><button class="btn btn-primary">Join</button></td>
                 </tr>
-                <tr>
-                    <td>Coolio Game</td>
-                    <td>Cool Guy</td>
-                    <td><button>Join</button></td>
+                <tr class="game-table-row">
+                    <td class="game-table-block">Coolio Game</td>
+                    <td class="game-table-block">Cool Guy</td>
+                    <td class="game-table-block"><button class="btn btn-primary">Join</button></td>
                 </tr>
             </table>
             
@@ -809,8 +810,8 @@
             <div>
                 <span>Guess:</span>
                 <input type="text" placeholder="A4" />
-                <button>Make Guess</button>
-                <button>Surrender</button>
+                <button class="btn btn-primary">Make Guess</button>
+                <button class="btn btn-primary">Surrender</button>
             </div>
         </main>
 

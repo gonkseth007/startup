@@ -1,0 +1,27 @@
+td button {
+    background-color: #539ae2;
+    border-color: #297383;
+    border-width: 2px;
+    margin: 0;
+}
+
+td button:hover {
+  background-color: #2b83db; /* Use your preferred hex code or Bootstrap variable */
+}
+
+td {
+    margin: 0;
+    padding: 0;
+}
+
+.game-table-row {
+    border-width: 1px;
+    border-color: black;
+}
+
+.game-table-block {
+    /* border-left-width: 1px;
+    border-right-width: 1px; */
+    border-color: black;
+    padding: 10px
+}
