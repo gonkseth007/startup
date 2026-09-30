@@ -14,28 +14,14 @@ td {
     padding: 0;
 }
 
-.game-table-row {
-    border-width: 1px;
-    border-color: black;
-}
-
-
-.game-table-row-alt {
-    border-width: 1px;
-    border-color: black;
-    background-color: #8bc5cd;
-}
-
 .game-table-block {
-    /* border-left-width: 1px;
-    border-right-width: 1px; */
     border-color: black;
     padding: 10px
 }
 
 .guess {
     display: flex;
-    flex-direction: row !important;
+    flex-direction: row;
 }
 
 .btn {
