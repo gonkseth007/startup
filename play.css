@@ -25,3 +25,8 @@ td {
     border-color: black;
     padding: 10px
 }
+
+.guess {
+    display: flex;
+    flex-direction: row !important;
+}
