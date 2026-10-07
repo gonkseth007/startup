@@ -15,7 +15,7 @@ export default function App() {
             <nav className="navbar navbar-dark" aria-label="Navigation">
                 <h4>Pokemon Battleship</h4>
                 <menu className="navbar-nav">
-                    <li className="nav-item"><NavLink className="nav-link active" to='index'>Home</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link" to=''>Home</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link" to='play'>Play Game</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link" to='stats_scores'>Stats & Scores</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link" to='about'>About</NavLink></li>
