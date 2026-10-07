@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
+  const navigate = useNavigate();
+
   return (
     <main className="container-fluid text-center body-primary">
         <div>
             <h1 id="welcome">Welcome to Pokemon Battleship!</h1>
-            <form method="get" action="play.html">
+            <form onSubmit={() => navigate("/play")}>
                 <h3>Login or Register</h3>
                 <div className="input-group my-3">
                     <span className="input-group-text">Username:</span>
