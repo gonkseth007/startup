@@ -20,7 +20,7 @@ footer {
   font-family: 'Cabin', sans-serif;
 }
 
-body {
+.body {
   display: flex;
   flex-direction: column;
   min-width: 375px;
@@ -83,21 +83,24 @@ h4 {
   --bs-btn-hover-border-color: #ffe69c;
   --bs-btn-hover-color: #297383;
   --bs-btn-active-bg: #ffd56a;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .body-primary {
-    background-color: #b4e6ee;
+  background-color: #b4e6ee;
+  color: black;
 }
 
 .table-row {
-    border-width: 1px;
-    border-color: black;
+  border-width: 1px;
+  border-color: black;
 }
 
 .table-row-alt {
-    border-width: 1px;
-    border-color: black;
-    background-color: #8bc5cd;
+  border-width: 1px;
+  border-color: black;
+  background-color: #8bc5cd;
 }
 
 #welcome { font-weight: bold; }
