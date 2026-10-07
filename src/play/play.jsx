@@ -1,9 +1,801 @@
 import React from 'react';
+import './play.css';
 
 export function Play() {
   return (
-    <main className="container-fluid bg-secondary text-center">
-      <div>play displayed here</div>
-    </main>
+    <main className="container-fluid text-center body-primary">
+      <h3 className="my-2">Available Games</h3>
+      <table>
+          <tr className="table-row-alt">
+              <th className="game-table-block">Game Name</th>
+              <th className="game-table-block">Host Player</th>
+              <th className="game-table-block">Join Game</th>
+          </tr>
+          <tr className="table-row">
+              <td className="game-table-block">My Game</td>
+              <td className="game-table-block">John</td>
+              <td className="game-table-block"><button className="btn btn-primary">Join</button></td>
+          </tr>
+          <tr className="table-row-alt">
+              <td className="game-table-block">Coolio Game</td>
+              <td className="game-table-block">Cool Guy</td>
+              <td className="game-table-block"><button className="btn btn-primary">Join</button></td>
+          </tr>
+      </table>
+      
+      <hr />
+
+      <div>Opponent: MisterMan</div>
+      <br />
+      <div>
+          <span className="mx-3">Your Score: 0000</span>
+          <span>Opponent's Score: 0000</span>
+      </div>
+      <br />
+
+      <div>Turn: Yours (GoldenGonk007)</div>
+
+      <hr />
+
+      <div>
+          {/* 3rd Party API Call Implemented With Pokemon Images As Boats */}
+          <table>
+          {/* Number Row for Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span></span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>1</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>2</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>3</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>4</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>5</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>6</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>7</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>8</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>9</span>
+              </div>
+              </th>
+              <th>
+              <div height="25" width="25">
+                  <span>10</span>
+              </div>
+              </th>
+          </tr>
+          {/* Row A of Board */}
+          <tr>
+              <th>
+              <div>
+                  <span>A</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square A10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row B of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>B</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square B10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row C of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>C</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square C10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row D of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>D</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square D10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row E of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>E</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square E10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row F of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>F</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square F10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row G of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>G</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square G10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row H of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>H</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square H10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row I of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>I</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square I10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          {/* Row J of Board */}
+          <tr>
+              <th>
+              <div height="25" width="25">
+                  <span>J</span>
+              </div>
+              </th>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J1" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J2" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J3" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J4" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J5" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J6" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J7" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J8" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J9" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+              <td>
+              <button>
+                  <svg aria-hidden="true" aria-label="Square J10" viewBox="0 0 100 100" height="25" width="25">
+                  </svg>
+              </button>
+              </td>
+          </tr>
+          </table>
+      </div>
+
+      {/*  Websocket placeholder  */}
+      <br />
+      <div>It is MisterMan's turn.</div>
+      <div>MisterMan guessed E6 - Miss!</div>
+      <div>It is GoldenGonk007's turn.</div>
+      <br />
+
+      <div className="mb-3 guess">
+          <div className="input-group m-3">
+              <span className="input-group-text">Guess:</span>
+              <input className="form-control rounded-end" type="text" placeholder="E4" />
+          </div>
+          <button className="btn btn-primary m-3 mx-2">Make Guess</button>
+          <button className="btn btn-primary m-3 mx-2">Surrender</button>
+      </div>
+  </main>
   );
 }
