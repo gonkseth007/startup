@@ -6,7 +6,7 @@ export function About() {
     <main className="container-fluid text-center body-primary">
         <div>
             <h3 className="mb-3" id="welcome">About Pokemon Battleship!</h3>
-            <img src="images/pokemon_cards.jpg" width="450" alt="Pokemon trading cards spread out on the ground" />
+            <img src="/pokemon_cards.jpg" width="450" alt="Pokemon trading cards spread out on the ground" />
             <div>
                 Battleship is a two-player game where players place 
                 (to hide) their ships and try to find and sink their 
