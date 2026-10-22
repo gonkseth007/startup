@@ -5,7 +5,7 @@ import { Unauthenticated } from './unauthenticated';
 import { Authenticated } from './authenticated';
 import { AuthState } from './authState';
 
-export function Login({ userName, authState, onAuthChange }) {
+export function Login({ userName, displayName, authState, onAuthChange }) {
   const navigate = useNavigate();
 
   return (
@@ -13,13 +13,14 @@ export function Login({ userName, authState, onAuthChange }) {
         <div>
             {authState !== AuthState.Unknown && <h1 id="welcome">Welcome to Pokemon Battleship!</h1>}
             {authState === AuthState.Authenticated && (
-                <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+                <Authenticated userName={userName} displayName={displayName} onLogout={() => onAuthChange(userName, displayName, AuthState.Unauthenticated)} />
             )}
             {authState === AuthState.Unauthenticated && (
                 <Unauthenticated
                     userName={userName}
-                    onLogin={(loginUserName) => {
-                    onAuthChange(loginUserName, AuthState.Authenticated);
+                    displayName={displayName}
+                    onLogin={(loginUserName, displayName) => {
+                        onAuthChange(loginUserName, displayName, AuthState.Authenticated);
                     }}
                 />
             )}

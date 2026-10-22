@@ -10,6 +10,7 @@ import { AuthState } from './login/authState';
 
 export default function App() {
   const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+  const [displayName, setDisplayName] = React.useState(localStorage.getItem('displayName') || '');
   const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
   const [authState, setAuthState] = React.useState(currentAuthState);
 
@@ -38,10 +39,12 @@ export default function App() {
             element={
               <Login 
                 userName={userName}
+                displayName={displayName}
                 authState={authState}
-                onAuthChange={(userName, authState) => {
+                onAuthChange={(userName, displayName, authState) => {
                   setAuthState(authState);
                   setUserName(userName);
+                  setDisplayName(displayName);
                 }}
               />
             } exact 
