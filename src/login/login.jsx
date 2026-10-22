@@ -1,26 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function Login() {
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { AuthState } from './authState';
+
+export function Login({ userName, authState, onAuthChange }) {
   const navigate = useNavigate();
 
   return (
     <main className="container-fluid text-center body-primary">
         <div>
-            <h1 id="welcome">Welcome to Pokemon Battleship!</h1>
-            <form onSubmit={() => navigate("/play")}>
-                <h3>Login or Register</h3>
-                <div className="input-group my-3">
-                    <span className="input-group-text">Username:</span>
-                    <input className="form-control rounded-end" type="text" placeholder="your@email.com" />
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text">Password:&nbsp;</span>
-                    <input className="form-control rounded-end" type="password" placeholder="mypassword123" />
-                </div>
-                <button className="btn btn-primary" type="submit">Login</button>
-                <button className="btn btn-primary" type="submit">Register</button>
-            </form>
+            {authState !== AuthState.Unknown && <h1 id="welcome">Welcome to Pokemon Battleship!</h1>}
+            {authState === AuthState.Authenticated && (
+                <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+            )}
+            {authState === AuthState.Unauthenticated && (
+                <Unauthenticated
+                    userName={userName}
+                    onLogin={(loginUserName) => {
+                    onAuthChange(loginUserName, AuthState.Authenticated);
+                    }}
+                />
+            )}
         </div>
     </main>
   );

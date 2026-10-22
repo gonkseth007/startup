@@ -83,6 +83,11 @@ h4 {
   --bs-btn-hover-border-color: #ffe69c;
   --bs-btn-hover-color: #297383;
   --bs-btn-active-bg: #ffd56a;
+
+  --bs-btn-disabled-bg: #ffe69c;
+  --bs-btn-disabled-border-color: #e0e0e0;
+  --bs-btn-disabled-color: #669da4;
+
   margin-left: 2px;
   margin-right: 2px;
 }
