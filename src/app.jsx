@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Play } from './play/play';
 import { Stats_Scores } from './stats_scores/stats_scores';
@@ -49,8 +49,18 @@ export default function App() {
               />
             } exact 
           />
-          <Route path='/play' element={<Play userName={userName} />} />
-          <Route path='/stats_scores' element={<Stats_Scores />} />
+          <Route 
+            path='/play' 
+            element={
+              authState == AuthState.Authenticated ? <Play userName={userName} /> : <Navigate to="/" replace />
+            } 
+          />
+          <Route 
+            path='/stats_scores' 
+            element={
+              authState == AuthState.Authenticated ? <Stats_Scores /> : <Navigate to="/" replace />
+            } 
+          />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

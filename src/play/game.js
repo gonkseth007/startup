@@ -1,3 +1,5 @@
+import { createEmptyBoard } from "./board.js";
+
 export class Game {
 
   constructor(name, hostPlayer) {
@@ -14,6 +16,11 @@ export function createGame(name, hostPlayer) {
         hostPlayer,
         otherPlayer: null,
         status: "waiting",
+        currentTurn: null,
+        boards: {
+            host: createEmptyBoard(),
+            guest: createEmptyBoard(),
+        }
     };
 }
 
