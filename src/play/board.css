@@ -1,0 +1,10 @@
+.cell-svg.unguessed { fill: none; }
+.cell-svg.hit { background-color: rgb(157, 52, 52); border-color: rgb(118, 46, 46); }
+.cell-svg.miss { background-color: gray; border-color: rgb(116, 115, 115); }
+.cell-svg.selected { background-color: #297383; border-color: #539ae2; }
+
+.cell-svg.ship-destroyer { background-color: sandybrown; border-color: orange; }
+.cell-svg.ship-submarine { background-color: forestgreen; border-color: darkgreen; }
+.cell-svg.ship-cruiser { background-color: mediumslateblue; border-color: mediumpurple; }
+.cell-svg.ship-battleship { background-color: lightseagreen; border-color: mediumturquoise; }
+.cell-svg.ship-carrier { background-color: gold; border-color: goldenrod; }

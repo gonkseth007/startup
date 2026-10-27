@@ -28,3 +28,8 @@ td {
   white-space: nowrap;
   width: max-content;
 }
+
+.margin-right-input {
+    margin-right: 30px;
+    padding-right: 5px;
+}
