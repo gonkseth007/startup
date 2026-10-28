@@ -10,14 +10,13 @@ export function Game({playState, onSetupDone}) {
         JSON.parse(localStorage.getItem("currentGame"))
     );
 
-    // const shipTypes = shipTypes;
-
-    const board = game?.boards?.host ?? createEmptyBoard();
+    const board = game?.boards?.host;
     const [guess, setGuess] = React.useState('');
+    const [coordToSelect, setCoordToSelect] = useState("start");
     const [coord1, setCoord1] = React.useState([]);
     const [coord2, setCoord2] = React.useState([]);
 
-    const [shipIndex, setShipIndex] = useState(0);
+    const [shipIndex, setShipIndex] = useState(() => getNextShipIndex(game));
     const selectedShip = shipTypes[shipIndex] ?? null;
 
     const [startText, setStartText] = React.useState("");
@@ -30,8 +29,6 @@ export function Game({playState, onSetupDone}) {
         ? getValidPlacements(board, selectedShip, start)
         : [];
 
-    console.log(playState);
-
     const validEndTexts = placements.map(({ end }) => formatCoordinate(end));
 
     const selectedPlacement = placements.find(
@@ -39,6 +36,26 @@ export function Game({playState, onSetupDone}) {
     );
 
     const previewCells = selectedPlacement?.cells ?? [];
+
+    function getNextShipIndex(game) {
+        const board = game?.boards?.host ?? [];
+
+        const placedShipIDs = new Set(
+            board.flatMap((row) => row.map((cell) => cell.shipID))
+            .filter((shipID) => shipID != null)
+        );
+
+        const nextIndex = shipTypes.findIndex(
+            (ship) => !placedShipIDs.has(ship.id)
+        );
+
+        // All ships placed
+        if (nextIndex === -1) {
+            onSetupDone();
+            setCoordToSelect("start");
+        }
+        return nextIndex === -1 ? shipTypes.length : nextIndex;
+    }
 
     function handlePlaceShip() {
         if (!selectedShip || !selectedPlacement) return;
@@ -49,13 +66,60 @@ export function Game({playState, onSetupDone}) {
             selectedPlacement.cells
         );
 
-        // Update the game with updatedBoard here.
-        setShipIndex((index) => index + 1);
+        // Update the game with updatedBoard
+        const updatedGame = {
+            ...game,
+            boards: {
+                ...game.boards,
+                host: updatedBoard,
+            },
+        };
+
         setStartText("");
         setEndText("");
-        console.log(shipIndex);
-        if (shipIndex === shipTypes.length) {
+        setCoord1([]);
+        setCoord2([]);
+
+        setGame(updatedGame);
+        localStorage.setItem("currentGame", JSON.stringify(updatedGame));
+
+        if (shipIndex === shipTypes.length - 1) {
             onSetupDone();
+            setCoordToSelect("start");
+        } else {
+            setShipIndex((index) => index + 1);
+            if (coordToSelect != "start") {
+                setCoordToSelect("start");
+            }
+        }
+    }
+
+    function handleBoardCellClick(row, column) {
+        const coordinate = convertNumToCoord(row, column);
+
+        if (playState == PlayState.Setup) {
+            if (coordToSelect === "start") {
+                setStartText(coordinate);
+                setCoord1([row, column]);
+                setEndText("");
+                setCoord2([]);
+                return;
+            }
+
+            if (validEndTexts.includes(coordinate)) {
+                setEndText(coordinate);
+                setCoord2([row, column]);
+            }
+        } else {
+            setNewGuess(row, column);
+        }
+    }
+
+    function toggleCoordToSelect() {
+        if (coordToSelect === "start") {
+            setCoordToSelect("end");
+        } else {
+            setCoordToSelect("start");
         }
     }
 
@@ -63,13 +127,9 @@ export function Game({playState, onSetupDone}) {
         if (!currGuess?.trim()) {
             return [];
         }
-        // console.log(currGuess);
         const normalized = currGuess.trim().toUpperCase();
         const row = normalized.charCodeAt(0) - 65;
         const column = Number(normalized.slice(1)) - 1;
-
-        // console.log(row);
-        // console.log(column);
 
         return [row, column];
     }
@@ -84,7 +144,6 @@ export function Game({playState, onSetupDone}) {
         const newGuess = convertNumToCoord(row, column);
         setGuess(newGuess);
         setCoord1([row, column]);
-        // console.log(newGuess);
     }
 
     const handleChange1 = (e) => {
@@ -94,37 +153,11 @@ export function Game({playState, onSetupDone}) {
         if (regex.test(rawValue)) {
             setGuess(rawValue);
             setCoord1(convertCoordToNum(rawValue));
-            // console.log(rawValue);
         } else {
             setGuess('');
             setCoord1([]);
         }
     }
-
-    const handleChange2 = (e) => {
-        const rawValue = e.target.value.toUpperCase();
-        const regex = /^[A-J]?(?:10|[1-9]?)?$/;
-
-        if (regex.test(rawValue)) {
-            setGuess(rawValue);
-            setCoord2(convertCoordToNum(rawValue));
-            // console.log(rawValue);
-        } else {
-            setGuess('');
-            setCoord2([]);
-        }
-    }
-
-    // const updatedBoard = placeShip(board, selectedShip, selectedPlacement.cells);
-    // setGame((previous) => {
-    //     const next = {
-    //         ...previous,
-    //         boards: { ...previous.boards, host: updatedBoard },
-    //     };
-
-    //     localStorage.setItem("currentGame", JSON.stringify(next));
-    //     return next;
-    // });
 
     return (
         <div>
@@ -143,13 +176,21 @@ export function Game({playState, onSetupDone}) {
                 </div>
             )}
 
+            {playState === PlayState.Setup && (
+                <div>
+                    <div>Place Ship: {selectedShip?.name} ({selectedShip?.size})</div>
+                </div>
+            )}
+
             <div>
                 {/* 3rd Party API Call Implemented With Pokemon Images As Boats */}
                 <Board 
-                    onCellClick={(row, column) => setNewGuess(row, column)} 
+                    onCellClick={handleBoardCellClick} 
                     boardType="host" showShips={true} 
-                    coord1={coord1} 
+                    coord1={coord1}
+                    coord2={coord2}
                     board={board}
+                    previewCells={previewCells}
                     playState={playState}
                 />
             </div>
@@ -170,7 +211,8 @@ export function Game({playState, onSetupDone}) {
                                 className="form-control rounded-end" 
                                 type="text" placeholder="e.g. &quot;E10&quot;" 
                                 value={guess} onChange={handleChange1} 
-                                maxLength={3} />
+                                maxLength={3} 
+                            />
                         </div>
                         <Button variant='primary' className="m-3 mx-2">Make Guess</Button>
                         <Button variant='primary' className="m-3 mx-2">Surrender</Button>
@@ -179,44 +221,60 @@ export function Game({playState, onSetupDone}) {
             )}
             {playState === PlayState.Setup && (
                 <div>
-                    <div className="input-group m-3">
-                        <span className="input-group-text">Start:</span>
-                        <input
-                            value={startText}
-                            className="form-control rounded-end margin-right-input" 
-                            type="text" placeholder="e.g. &quot;E10&quot;" 
-                            onChange={(event) => {
-                                const value = event.target.value.trim().toUpperCase();
+                    <div className="input-row">
+                        <div className="input-group my-3">
+                            <span className="input-group-text">Start:</span>
+                            <input
+                                value={startText}
+                                className="form-control rounded-end margin-right-input" 
+                                type="text" placeholder="e.g. &quot;E10&quot;" 
+                                onChange={(event) => {
+                                    const value = event.target.value.trim().toUpperCase();
 
-                                if (/^(?:[A-J](?:10|[1-9])?)?$/.test(value)) {
-                                setStartText(value);
-                                setEndText("");
-                                }
-                            }}
-                        />
-                        <span className="input-group-text">End:</span>
-                        <input
-                            value={endText}
-                            className="form-control rounded-end margin-right-input" 
-                            type="text" placeholder="e.g. &quot;E10&quot;" 
-                            onChange={(event) => {
-                                const value = event.target.value.trim().toUpperCase();
+                                    if (/^(?:[A-J](?:10|[1-9])?)?$/.test(value)) {
+                                        setStartText(value);
+                                        setEndText("");
+                                        
+                                        const parsed = parseCoordinate(value);
+                                        setCoord1(parsed ? [parsed.row, parsed.col] : []);
+                                        setCoord2([]);
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className="input-group my-3">
+                            <span className="input-group-text">End:</span>
+                            <input
+                                value={endText}
+                                className="form-control rounded-end margin-right-input" 
+                                type="text" placeholder="e.g. &quot;E10&quot;" 
+                                onChange={(event) => {
+                                    const value = event.target.value.trim().toUpperCase();
 
-                                if (
-                                value === "" ||
-                                validEndTexts.some((endpoint) => endpoint.startsWith(value))
-                                ) {
-                                setEndText(value);
-                                }
-                            }}
-                        />
+                                    if (
+                                        value === "" ||
+                                        validEndTexts.some((endpoint) => endpoint.startsWith(value))
+                                    ) {
+                                        setEndText(value);
+                                        const parsed = parseCoordinate(value);
+                                        setCoord2(parsed ? [parsed.row, parsed.col] : []);
+                                        // setCoord2([]);
+                                    }
+                                }}
+                            />
+                        </div>
                     </div>
-                    <Button variant='primary'
-                        disabled={!selectedPlacement}
-                        onClick={() => {handlePlaceShip}}
-                    >
-                        Place ship
-                    </Button>
+                    <div>
+                        <Button variant='primary'
+                            disabled={!selectedPlacement}
+                            onClick={handlePlaceShip}
+                        >
+                            Place ship
+                        </Button>
+                        <Button variant="primary" onClick={toggleCoordToSelect}>
+                            Toggle position selected: {coordToSelect}
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>

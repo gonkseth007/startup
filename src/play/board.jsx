@@ -6,17 +6,7 @@ import './board.css';
 const rowLabels = "ABCDEFGHIJ".split("");
 const columns = Array.from({ length: 10 }, (_, index) => index + 1);
 
-function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, playState }) {
-    // console.log(coord1);
-    // const [selectedCell, setSelectedCell] = React.useState(coord1);
-
-    function clickCell(row, column) {
-        onCellClick(row, column);
-        // setSelectedCell([row, column]);
-        // console.log(selectedCell);
-        // setGuess(convertNumToGuess(row, column));
-    }
-
+function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, previewCells, playState }) {
 
     return (
         <table>
@@ -39,18 +29,27 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                         {columns.map((column) => {
                             const cell = board[rowIndex]?.[column - 1];
 
+                            const isEndpoint =
+                                (coord1?.[0] === rowIndex && coord1?.[1] === column - 1) ||
+                                (coord2?.[0] === rowIndex && coord2?.[1] === column - 1);
+
+                            const isPreview = previewCells.some(
+                                (previewCell) => previewCell.row === rowIndex && previewCell.col === column - 1
+                            );
+
+
+
                             let cellClass = "unguessed";
-                            // console.log(coord1?.[0]);
-                            // console.log(coord1?.[1]);
-                            if ((coord1?.[0] === rowIndex && coord1?.[1] === column - 1) 
-                                || (coord2?.[0] === rowIndex && coord2?.[1] === column - 1)) {
+                            if (isEndpoint || isPreview) {
                                 cellClass = "selected"
+                            } else if (isPreview) {
+                                cellClass = "preview"
                             } else if (cell?.shot === "hit") {
                                 cellClass = "hit";
                             } else if (cell?.shot === "miss") {
                                 cellClass = "miss";
-                            } else if (showShips && cell?.shipId) {
-                                cellClass = `ship-${cell.shipId}`;
+                            } else if (showShips && cell?.shipID) {
+                                cellClass = `ship-${cell.shipID}`;
                             }
                         
                         
@@ -59,7 +58,7 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                                     <button
                                         type="button"
                                         aria-label={`Square ${rowLabel}${column}`}
-                                        onClick={() => clickCell?.(rowIndex, column - 1)}
+                                        onClick={() => onCellClick(rowIndex, column - 1)}
                                         className={`cell-svg ${cellClass}`}
                                     >
                                         <svg
@@ -67,9 +66,7 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                                             viewBox="0 0 100 100"
                                             width="25"
                                             height="25"
-                                            // className={`cell-svg ${cellClass}`}
                                         >
-                                            {/* <rect x="5" y="5" width="90" height="90" rx="8" /> */}
                                         </svg>
                                     </button>
                                 </td>

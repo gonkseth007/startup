@@ -41,7 +41,7 @@ export function getValidPlacements(board, ship, start) {
         row < board.length &&
         col >= 0 &&
         col < board[row].length &&
-        board[row][col].shipId === null
+        board[row][col].shipID === null
     );
 
     return fits
@@ -54,7 +54,7 @@ export function placeShip(board, ship, cells) {
   const nextBoard = board.map((row) => row.map((cell) => ({ ...cell })));
 
   cells.forEach(({ row, col }) => {
-    nextBoard[row][col].shipId = ship.id;
+    nextBoard[row][col].shipID = ship.id;
   });
 
   return nextBoard;
