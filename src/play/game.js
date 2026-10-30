@@ -5,7 +5,6 @@ export class Game {
   constructor(name, hostPlayer) {
     this.name = name;
     this.hostPlayer = hostPlayer;
-    this.gameID = gameID;
   }
 }
 
