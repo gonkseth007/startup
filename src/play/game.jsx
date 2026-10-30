@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Board from './board.jsx';
 import { PlayState } from './playState';
-import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip, applyShot } from './board.js';
+import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip, applyShot, createRandomFleetBoard, hasFleetBeenSunk } from './board.js';
 import { shipTypes } from './ships.js';
 import { chooseRandomGuess } from './ai.js';
-import { createRandomFleetBoard, hasFleetBeenSunk} from './board.js';
 
 export function Game({playState, onSetupDone, onReturnToLobby }) {
     const [game, setGame] = useState(() => JSON.parse(localStorage.getItem("currentGame")));
@@ -260,7 +259,7 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
     }
 
     function handleBoardCellClick(row, column) {
-        const coordinate = convertNumToCoord(row, column);
+        const coordinate = formatCoordinate(row, column);
 
         if (playState == PlayState.Setup) {
             if (coordToSelect === "start") {
@@ -338,15 +337,9 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
 
         return [row, column];
     }
-
-    function convertNumToCoord(row, column) {
-        let convertedGuess = String.fromCharCode(65 + row);
-        convertedGuess += String(column + 1);
-        return convertedGuess;
-    }
     
     function setNewGuess(row, column) {
-        const newGuess = convertNumToCoord(row, column);
+        const newGuess = formatCoordinate(row, column);
         setGuess(newGuess);
         setCoord1([row, column]);
     }
@@ -389,7 +382,7 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
             )}
 
             <div>
-                {/* 3rd Party API Call Implemented With Pokemon Images As Boats */}
+                {/* 3rd Party API Call To Be Implemented With Pokemon Images As Boats */}
                 <Board 
                     onCellClick={handleBoardCellClick} 
                     boardType="host" showShips={showShips} 
@@ -487,7 +480,6 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
                                         setEndText(value);
                                         const parsed = parseCoordinate(value);
                                         setCoord2(parsed ? [parsed.row, parsed.col] : []);
-                                        // setCoord2([]);
                                     }
                                 }}
                             />

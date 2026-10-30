@@ -122,8 +122,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [x] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [x] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I did complete this part of the deliverable.
+- [x] **Hooks** - I did complete this part of the deliverable.
 
 ## 🚀 Service deliverable
 
