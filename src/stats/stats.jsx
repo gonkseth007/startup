@@ -38,9 +38,9 @@ export function Stats() {
                     </thead>
                     <tbody>
                         <tr className="table-row">
-                            <td className="table-cell">{userRank}</td>
-                            <td className="table-cell">{userStats.wins}</td>
-                            <td className="table-cell">{userStats.losses}</td>
+                            <td className="table-cell">{userRank ?? "Unranked"}</td>
+                            <td className="table-cell">{userStats?.wins ?? 0}</td>
+                            <td className="table-cell">{userStats?.losses ?? 0}</td>
                         </tr>
                     </tbody>
                 </table>
