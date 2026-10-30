@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Board from './board.jsx';
 import { PlayState } from './playState';
-import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip } from './board.js';
+import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip, applyShot } from './board.js';
 import { shipTypes } from './ships.js';
+import { chooseRandomGuess } from './ai.js';
+import { createRandomFleetBoard, hasFleetBeenSunk} from './board.js';
 
-export function Game({playState, onSetupDone}) {
+export function Game({playState, onSetupDone, onReturnToLobby }) {
     const [game, setGame] = useState(() => JSON.parse(localStorage.getItem("currentGame")));
 
     const board = game?.boards?.host;
@@ -32,8 +34,9 @@ export function Game({playState, onSetupDone}) {
 
     const previewCells = selectedPlacement?.cells ?? [];
 
-    const [turnPhase, setTurnPhase] = useState("player");
+    const [turnPhase, setTurnPhase] = useState(() => game?.status === "finished" ? "game-over" : "player");
     const [lastMove, setLastMove] = useState(null);
+    const displayName = localStorage.getItem('displayName');
     const opponentName =
         game?.mode === "offline" ? "Bot" : "MisterMan";
 
@@ -49,6 +52,158 @@ export function Game({playState, onSetupDone}) {
     const showShips =
         playState === PlayState.Setup || showingHostBoard;
 
+    const [turnMessages, setTurnMessages] = useState([]);
+    const MAX_TURN_MESSAGES = 6;
+
+    const [gameOver, setGameOver] = useState(() => game?.status === "finished");
+
+    const [gameResult, setGameResult] = useState(() => game?.result ?? null);
+
+    const gameEndedRef = React.useRef(game?.status === "finished");
+
+    useEffect(() => {
+        if (playState !== PlayState.PlayingGame || gameOver) return;
+
+        let timer;
+
+        if (turnPhase === "player-result") {
+            addTurnMessage(`${opponentName}'s turn.`);
+            timer = setTimeout(() => {
+            setTurnPhase("opponent-thinking");
+            }, 3000);
+        }
+
+        if (turnPhase === "opponent-thinking") {
+            const delay =
+            game.mode === "offline"
+                ? 1000 + Math.random() * 500
+                : 2500 + Math.random() * 1000;
+
+            timer = setTimeout(() => {
+            const aiGuess = chooseRandomGuess(game.boards.host);
+
+            if (!aiGuess) {
+                setTurnPhase("player");
+                return;
+            }
+
+            const { board: updatedHostBoard, result } = applyShot(
+                game.boards.host,
+                aiGuess
+            );
+
+            if (!result) {
+                setTurnPhase("player");
+                return;
+            }
+
+            const updatedGame = {
+                ...game,
+                boards: {
+                ...game.boards,
+                host: updatedHostBoard,
+                },
+            };
+
+            saveGame(updatedGame);
+
+            if (hasFleetBeenSunk(updatedHostBoard)) {
+                finishGame("loss", updatedGame);
+                localStorage.removeItem("currentGame");
+                return;
+            }
+
+            setLastMove({
+                player: opponentName,
+                coordinate: formatCoordinate(aiGuess),
+                result,
+            });
+
+            addTurnMessage(`${opponentName} guessed ${formatCoordinate(aiGuess)} — ${result}!`);
+            setTurnPhase("opponent-result");
+            }, delay);
+        }
+
+        if (turnPhase === "opponent-result") {
+            addTurnMessage("Your turn.");
+            timer = setTimeout(() => {
+            setTurnPhase("player");
+            }, 3000);
+        }
+
+        return () => clearTimeout(timer);
+    }, [playState, turnPhase, game, opponentName]);
+
+    function addTurnMessage(text) {
+        setTurnMessages((previous) => [
+            { id: crypto.randomUUID(), text },
+            ...previous,
+        ].slice(0, MAX_TURN_MESSAGES));
+    }
+
+    function finishGame(outcome, finalGame = game) {
+        if (gameEndedRef.current || finalGame?.status === "finished") return;
+
+        gameEndedRef.current = true;
+
+        const finishedGame = {
+            ...finalGame,
+            status: "finished",
+            result: outcome,
+        };
+
+        saveGame(finishedGame);
+        removeGameFromLobby(finishedGame.id);
+        setGameOver(true);
+        setTurnPhase("game-over");
+        setGameResult(outcome);
+
+        addTurnMessage(
+            outcome === "win" ? "You won!" : `${opponentName} won!`
+        );
+
+        recordPlayerResult(outcome);
+    }
+
+    function recordPlayerResult(outcome) {
+        const username =
+            localStorage.getItem("userName") ||
+            game?.hostPlayer?.userName ||
+            "local-player";
+
+        const allStats = JSON.parse(
+            localStorage.getItem("playerStats") || "{}"
+        );
+
+        const playerStats = allStats[username] ?? { wins: 0, losses: 0 };
+
+        const updatedStats = {
+            ...playerStats,
+            wins: playerStats.wins + (outcome === "win" ? 1 : 0),
+            losses: playerStats.losses + (outcome === "loss" ? 1 : 0),
+        };
+
+        localStorage.setItem(
+            "playerStats",
+            JSON.stringify({
+            ...allStats,
+            [username]: updatedStats,
+            })
+        );
+    }
+
+    function saveGame(updatedGame) {
+        setGame(updatedGame);
+        localStorage.setItem("currentGame", JSON.stringify(updatedGame));
+    }
+
+    function removeGameFromLobby(gameId) {
+        const games = JSON.parse(localStorage.getItem("games") || "[]");
+        const remainingGames = games.filter((savedGame) => savedGame.id !== gameId);
+
+        localStorage.setItem("games", JSON.stringify(remainingGames));
+    }
+    
     function getNextShipIndex(game) {
         const board = game?.boards?.host ?? [];
 
@@ -92,8 +247,11 @@ export function Game({playState, onSetupDone}) {
         setCoord1([]);
         setCoord2([]);
 
-        setGame(updatedGame);
-        localStorage.setItem("currentGame", JSON.stringify(updatedGame));
+        if (shipIndex === shipTypes.length - 1) {
+            updatedGame.boards.guest = createRandomFleetBoard(shipTypes);
+        }
+
+        saveGame(updatedGame);
 
         if (shipIndex === shipTypes.length - 1) {
             onSetupDone();
@@ -124,7 +282,7 @@ export function Game({playState, onSetupDone}) {
             }
         } else {
             if (turnPhase !== "player") return;
-            if (game.boards.guest[row][col].shot !== null) return;
+            if (game.boards.guest[row][column].shot !== null) return;
             setNewGuess(row, column);
         }
     }
@@ -148,8 +306,12 @@ export function Game({playState, onSetupDone}) {
             },
         };
 
-        setGame(updatedGame);
-        localStorage.setItem("currentGame", JSON.stringify(updatedGame));
+        saveGame(updatedGame);
+        if (hasFleetBeenSunk(updatedOpponentBoard)) {
+            finishGame("win", updatedGame);
+            localStorage.removeItem("currentGame");
+            return;
+        }
 
         setLastMove({
             player: "You",
@@ -157,6 +319,7 @@ export function Game({playState, onSetupDone}) {
             result,
         });
 
+        addTurnMessage(`You guessed ${guess} — ${result}!`);
         setCoord1([]);
         setGuess("");
         setTurnPhase("player-result");
@@ -200,8 +363,11 @@ export function Game({playState, onSetupDone}) {
         const regex = /^[A-J]?(?:10|[1-9]?)?$/;
 
         if (regex.test(rawValue)) {
+            const coord = convertCoordToNum(rawValue);
+            if (game.boards.guest[coord[0]][coord[1]].shot !== null) return;
             setGuess(rawValue);
-            setCoord1(convertCoordToNum(rawValue));
+            setCoord1(coord);
+            
         } else {
             setGuess('');
             setCoord1([]);
@@ -212,15 +378,11 @@ export function Game({playState, onSetupDone}) {
         <div>
             {playState === PlayState.PlayingGame && (
                 <div>
-                    <div>Opponent: MisterMan</div>
-                    <br />
-                    <div>
-                        <span className="mx-3">Your Score: 0000</span>
-                        <span>Opponent's Score: 0000</span>
-                    </div>
+                    <div>Opponent: {opponentName}</div>
                     <br />
 
-                    <div>Turn: Yours (GoldenGonk007)</div>
+                    {!gameOver && (<div>Turn: Yours ({displayName})</div>)}
+                    {gameOver && (<div>Game Ended...</div>)}
                     <hr />
                 </div>
             )}
@@ -240,17 +402,20 @@ export function Game({playState, onSetupDone}) {
                     coord2={coord2}
                     board={visibleBoard}
                     previewCells={previewCells}
-                    playState={playState}
+                    interactive={playState === PlayState.Setup || turnPhase === "player"}
+                    rejectShotCells={playState === PlayState.PlayingGame}
                 />
             </div>
 
             {/*  Websocket placeholder  */}
-            {playState === PlayState.PlayingGame && (
+            {(!gameOver && playState === PlayState.PlayingGame) && (
                 <div>
                     <br />
-                    <div>It is MisterMan's turn.</div>
-                    <div>MisterMan guessed E6 - Miss!</div>
-                    <div>It is GoldenGonk007's turn.</div>
+                    <div id="turn-messages" aria-live="polite">
+                        {turnMessages.map(({ id, text }) => (
+                            <div key={id}>{text}</div>
+                        ))}
+                    </div>
                     <br />
 
                     <div className="mb-3 guess">
@@ -269,8 +434,23 @@ export function Game({playState, onSetupDone}) {
                             disabled={turnPhase !== "player" || coord1.length !== 2}
                             onClick={handleSubmitGuess}
                         >Make Guess</Button>
-                        <Button variant='primary' className="m-3 mx-2">Surrender</Button>
+                        <Button
+                            variant="primary"
+                            className="m-3 mx-2"
+                            disabled={gameOver}
+                            onClick={() => finishGame("loss")}
+                        >Surrender</Button>
                     </div>
+                </div>
+            )}
+            {gameOver && (
+                <div>
+                    <div className="my-4">
+                        {gameResult === "win" ? "You won!" : "You lost."}
+                    </div>
+                    <Button variant="primary" onClick={onReturnToLobby}>
+                        Return to Lobby
+                    </Button>
                 </div>
             )}
             {playState === PlayState.Setup && (

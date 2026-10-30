@@ -6,7 +6,7 @@ import './board.css';
 const rowLabels = "ABCDEFGHIJ".split("");
 const columns = Array.from({ length: 10 }, (_, index) => index + 1);
 
-function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, previewCells, playState }) {
+function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, previewCells, interactive, rejectShotCells }) {
 
     return (
         <table>
@@ -42,8 +42,6 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                             let cellClass = "unguessed";
                             if (isEndpoint || isPreview) {
                                 cellClass = "selected"
-                            } else if (isPreview) {
-                                cellClass = "preview"
                             } else if (cell?.shot === "hit") {
                                 cellClass = "hit";
                             } else if (cell?.shot === "miss") {
@@ -58,6 +56,9 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                                     <button
                                         type="button"
                                         aria-label={`Square ${rowLabel}${column}`}
+                                        disabled={!interactive || 
+                                            (rejectShotCells && cell?.shot !== null)
+                                        }
                                         onClick={() => onCellClick(rowIndex, column - 1)}
                                         className={`cell-svg ${cellClass}`}
                                     >

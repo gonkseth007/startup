@@ -27,6 +27,11 @@ export function Play(props) {
         localStorage.setItem('gameState', 'play');
     }
     
+    function returnToLobby() {
+        setPlayState(PlayState.InLobby);
+        localStorage.setItem("gameState", "lobby");
+    }
+
     return (
         <main className="container-fluid text-center body-primary">
             {/* {playState !== PlayState.Unknown && <h1 id="welcome">Welcome to Pokemon Battleship!</h1>} */}
@@ -36,7 +41,7 @@ export function Play(props) {
                 />
             )}
             {(playState === PlayState.Setup || playState === PlayState.PlayingGame) && (
-                <Game playState={playState} onSetupDone={startGame} />
+                <Game playState={playState} onSetupDone={startGame} onReturnToLobby={returnToLobby} />
             )}    
         </main>
     );

@@ -76,3 +76,43 @@ export function applyShot(board, { row, col }) {
 
     return { board: updatedBoard, result };
 }
+
+export function createRandomFleetBoard(ships) {
+  for (let attempt = 0; attempt < 100; attempt++) {
+    let board = createEmptyBoard();
+    let failed = false;
+
+    for (const ship of ships) {
+      const placements = [];
+
+      for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[row].length; col++) {
+          placements.push(
+            ...getValidPlacements(board, ship, { row, col })
+          );
+        }
+      }
+
+      if (placements.length === 0) {
+        failed = true;
+        break;
+      }
+
+      const placement =
+        placements[Math.floor(Math.random() * placements.length)];
+
+      board = placeShip(board, ship, placement.cells);
+    }
+
+    if (!failed) return board;
+  }
+
+  throw new Error("Could not create a random fleet board.");
+}
+
+export function hasFleetBeenSunk(board) {
+  const shipCells = board.flat().filter((cell) => cell.shipID !== null);
+
+  return shipCells.length > 0 &&
+    shipCells.every((cell) => cell.shot === "hit");
+}
