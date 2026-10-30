@@ -6,9 +6,7 @@ import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip } from
 import { shipTypes } from './ships.js';
 
 export function Game({playState, onSetupDone}) {
-    const [game, setGame] = useState(() =>
-        JSON.parse(localStorage.getItem("currentGame"))
-    );
+    const [game, setGame] = useState(() => JSON.parse(localStorage.getItem("currentGame")));
 
     const board = game?.boards?.host;
     const [guess, setGuess] = React.useState('');
@@ -21,7 +19,6 @@ export function Game({playState, onSetupDone}) {
 
     const [startText, setStartText] = React.useState("");
     const [endText, setEndText] = React.useState("");
-    const [message, setMessage] = React.useState("");
 
     const start = parseCoordinate(startText);
     const placements =
@@ -31,11 +28,26 @@ export function Game({playState, onSetupDone}) {
 
     const validEndTexts = placements.map(({ end }) => formatCoordinate(end));
 
-    const selectedPlacement = placements.find(
-        ({ end }) => formatCoordinate(end) === endText
-    );
+    const selectedPlacement = placements.find(({ end }) => formatCoordinate(end) === endText);
 
     const previewCells = selectedPlacement?.cells ?? [];
+
+    const [turnPhase, setTurnPhase] = useState("player");
+    const [lastMove, setLastMove] = useState(null);
+    const opponentName =
+        game?.mode === "offline" ? "Bot" : "MisterMan";
+
+    const showingHostBoard =
+        playState === PlayState.Setup ||
+        turnPhase === "opponent-thinking" ||
+        turnPhase === "opponent-result";
+
+    const visibleBoard = showingHostBoard
+        ? game.boards.host
+        : game.boards.guest;
+
+    const showShips =
+        playState === PlayState.Setup || showingHostBoard;
 
     function getNextShipIndex(game) {
         const board = game?.boards?.host ?? [];
@@ -111,8 +123,43 @@ export function Game({playState, onSetupDone}) {
                 setCoord2([row, column]);
             }
         } else {
+            if (turnPhase !== "player") return;
+            if (game.boards.guest[row][col].shot !== null) return;
             setNewGuess(row, column);
         }
+    }
+
+    function handleSubmitGuess() {
+        if (turnPhase !== "player" || coord1.length !== 2) return;
+
+        const [row, col] = coord1;
+        const { board: updatedOpponentBoard, result } = applyShot(
+            game.boards.guest,
+            { row, col }
+        );
+
+        if (!result) return;
+
+        const updatedGame = {
+            ...game,
+            boards: {
+            ...game.boards,
+            guest: updatedOpponentBoard,
+            },
+        };
+
+        setGame(updatedGame);
+        localStorage.setItem("currentGame", JSON.stringify(updatedGame));
+
+        setLastMove({
+            player: "You",
+            coordinate: formatCoordinate({ row, col }),
+            result,
+        });
+
+        setCoord1([]);
+        setGuess("");
+        setTurnPhase("player-result");
     }
 
     function toggleCoordToSelect() {
@@ -147,6 +194,8 @@ export function Game({playState, onSetupDone}) {
     }
 
     const handleChange1 = (e) => {
+        if (turnPhase !== "player") return;
+        if (game.boards.guest[row][col].shot !== null) return;
         const rawValue = e.target.value.toUpperCase();
         const regex = /^[A-J]?(?:10|[1-9]?)?$/;
 
@@ -186,10 +235,10 @@ export function Game({playState, onSetupDone}) {
                 {/* 3rd Party API Call Implemented With Pokemon Images As Boats */}
                 <Board 
                     onCellClick={handleBoardCellClick} 
-                    boardType="host" showShips={true} 
+                    boardType="host" showShips={showShips} 
                     coord1={coord1}
                     coord2={coord2}
-                    board={board}
+                    board={visibleBoard}
                     previewCells={previewCells}
                     playState={playState}
                 />
@@ -214,7 +263,12 @@ export function Game({playState, onSetupDone}) {
                                 maxLength={3} 
                             />
                         </div>
-                        <Button variant='primary' className="m-3 mx-2">Make Guess</Button>
+                        <Button 
+                            variant='primary' 
+                            className="m-3 mx-2" 
+                            disabled={turnPhase !== "player" || coord1.length !== 2}
+                            onClick={handleSubmitGuess}
+                        >Make Guess</Button>
                         <Button variant='primary' className="m-3 mx-2">Surrender</Button>
                     </div>
                 </div>

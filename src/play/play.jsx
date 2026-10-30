@@ -15,7 +15,6 @@ export function Play(props) {
     const [guess, setGuess] = React.useState('');
     const currentPlayState = gameState == 'lobby' ? PlayState.InLobby : (gameState == 'setup' ? PlayState.Setup : PlayState.PlayingGame);
     const [playState, setPlayState] = React.useState(currentPlayState);
-    localStorage.setItem('inGame', false);
 
     function joinGame(game) {
         setPlayState(PlayState.Setup);
@@ -24,7 +23,6 @@ export function Play(props) {
     }
 
     function startGame() {
-        console.log('in startGame');
         setPlayState(PlayState.PlayingGame); 
         localStorage.setItem('gameState', 'play');
     }

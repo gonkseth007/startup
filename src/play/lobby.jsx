@@ -42,7 +42,6 @@ function Lobby(props) {
 
         const updatedGames = [...games, newGame];
         setGames(updatedGames);
-        console.log(updatedGames);
         localStorage.setItem('games', JSON.stringify(updatedGames));
         props.onPlayGame(newGame);
     }
@@ -53,7 +52,17 @@ function Lobby(props) {
     }
 
     function handleOffline() {
-        props.onPlayGame();
+        const newGame = createGame("Offline Game", {
+            userName: userName,
+            displayName: displayName
+        });
+
+        newGame.mode = "offline";
+        newGame.otherPlayer = {
+            userName: "bot",
+            displayName: "Bot",
+        };
+        props.onPlayGame(newGame);
     }
 
     return (

@@ -16,7 +16,8 @@ export function createGame(name, hostPlayer) {
         hostPlayer,
         otherPlayer: null,
         status: "waiting",
-        currentTurn: null,
+        currentTurn: "host",
+        mode: "online",
         boards: {
             host: createEmptyBoard(),
             guest: createEmptyBoard(),

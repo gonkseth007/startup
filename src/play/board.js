@@ -59,3 +59,20 @@ export function placeShip(board, ship, cells) {
 
   return nextBoard;
 }
+
+export function applyShot(board, { row, col }) {
+    const cell = board[row]?.[col];
+
+    if (!cell || cell.shot !== null) {
+        return { board, result: null };
+    }
+
+    const result = cell.shipID !== null ? "hit" : "miss";
+    const updatedBoard = board.map((boardRow) =>
+        boardRow.map((boardCell) => ({ ...boardCell }))
+    );
+
+    updatedBoard[row][col].shot = result;
+
+    return { board: updatedBoard, result };
+}

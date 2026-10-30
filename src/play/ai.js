@@ -3,28 +3,29 @@ export function chooseRandomGuess(board) {
 
     board.forEach((row, rowIndex) => {
         row.forEach((cell, colIndex) => {
-            if (cell.shot === null) {
-                availableGuesses.push({ row: rowIndex, col: colIndex });
-            }
+        if (cell.shot === null) {
+            availableGuesses.push({ row: rowIndex, col: colIndex });
+        }
         });
     });
 
-    const index = Math.floor(Math.random() * availableGuesses.length);
-    return availableGuesses[index];
+    if (availableGuesses.length === 0) return null;
+
+    return availableGuesses[Math.floor(Math.random() * availableGuesses.length)];
 }
 
 export function chooseShipPlacement(board, size, shipType) {
     while (true) {
-        placedShip = false;
+        let placedShip = false;
         const x = Math.floor(Math.random() * 10) + 1;
         const y = Math.floor(Math.random() * 10) + 1;
-        const dir = Math.floor(Math.random * 4);
+        const dir = Math.floor(Math.random() * 4);
 
         switch (dir) {
             case 0:
-                if (x + size < board.board[0].length) {
-                    canPlace = true;
-                    for (i = x; i < x + size; i++) {
+                if (x + size - 1 < board.board[0].length) {
+                    let canPlace = true;
+                    for (let i = x; i < x + size; i++) {
                         if (board.board[y][i] != null) {
                             canPlace = false;
                             break
@@ -39,8 +40,8 @@ export function chooseShipPlacement(board, size, shipType) {
                 break;
             case 1:
                 if (x - size > 0) {
-                    canPlace = true;
-                    for (i = x - size; i < x; i++) {
+                    let canPlace = true;
+                    for (let i = x - size; i < x; i++) {
                         if (board.board[y][i] != null) {
                             canPlace = false;
                             break
@@ -54,9 +55,9 @@ export function chooseShipPlacement(board, size, shipType) {
                 }
                 break;
             case 2:
-                if (y + size < board.board.length) {
-                    canPlace = true;
-                    for (i = y; i < y + size; i++) {
+                if (y + size - 1 < board.board.length) {
+                    let canPlace = true;
+                    for (let i = y; i < y + size; i++) {
                         if (board.board[i][x] != null) {
                             canPlace = false;
                             break
@@ -71,8 +72,8 @@ export function chooseShipPlacement(board, size, shipType) {
                 break;
             case 3:
                 if (y - size > 0) {
-                    canPlace = true;
-                    for (i = y - size; i < y; i++) {
+                    let canPlace = true;
+                    for (let i = y - size; i < y; i++) {
                         if (board.board[i][x] != null) {
                             canPlace = false;
                             break
@@ -92,4 +93,5 @@ export function chooseShipPlacement(board, size, shipType) {
             break;
         }
     }
+    return board;
 }
