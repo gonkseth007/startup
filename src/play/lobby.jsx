@@ -7,12 +7,27 @@ import { createGame, joinGame } from './game.js'
 const columns = Array.from({ length: 10 }, (_, index) => index + 1);
 
 function Lobby(props) {
-    const savedGames = JSON.parse(localStorage.getItem("games")) ?? [];
-    if (savedGames.length === 0) {
-        localStorage.setItem('games', JSON.stringify([createGame("My Dope Game!", {userName: "agent007@gmail.com", displayName: "Agent007"}), createGame("Coolio Game", {userName: "coolguy123@gmail.com", displayName: "Cool Guy"})]));
-        savedGames = JSON.parse(localStorage.getItem("games"));
-    }
-    const [games, setGames] = React.useState(savedGames);
+    const [games, setGames] = React.useState(() => {
+        const storedGames = localStorage.getItem("games");
+
+        if (storedGames !== null) {
+            return JSON.parse(storedGames);
+        }
+
+        const defaults = [
+            createGame("My Dope Game!", {
+                userName: "agent007@gmail.com",
+                displayName: "Agent007",
+            }),
+            createGame("Coolio Game", {
+                userName: "coolguy123@gmail.com",
+                displayName: "Cool Guy",
+            }),
+        ];
+        
+        localStorage.setItem("games", JSON.stringify(defaults));
+        return defaults;
+    });
     const [gameName, setGameName] = React.useState('');
     const [makeNewGame, setMakeNewGame] = React.useState(false);
 
