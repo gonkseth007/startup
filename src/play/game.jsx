@@ -258,13 +258,13 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
         }
     }
 
-    function handleBoardCellClick(row, column) {
-        const coordinate = formatCoordinate(row, column);
+    function handleBoardCellClick(row, col) {
+        const coordinate = formatCoordinate({ row, col });
 
         if (playState == PlayState.Setup) {
             if (coordToSelect === "start") {
                 setStartText(coordinate);
-                setCoord1([row, column]);
+                setCoord1([row, col]);
                 setEndText("");
                 setCoord2([]);
                 return;
@@ -272,12 +272,12 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
 
             if (validEndTexts.includes(coordinate)) {
                 setEndText(coordinate);
-                setCoord2([row, column]);
+                setCoord2([row, col]);
             }
         } else {
             if (turnPhase !== "player") return;
-            if (game.boards.guest[row][column].shot !== null) return;
-            setNewGuess(row, column);
+            if (game.boards.guest[row][col].shot !== null) return;
+            setNewGuess(row, col);
         }
     }
 
@@ -338,10 +338,10 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
         return [row, column];
     }
     
-    function setNewGuess(row, column) {
-        const newGuess = formatCoordinate(row, column);
+    function setNewGuess(row, col) {
+        const newGuess = formatCoordinate({ row, col });
         setGuess(newGuess);
-        setCoord1([row, column]);
+        setCoord1([row, col]);
     }
 
     const handleChange1 = (e) => {
