@@ -4,7 +4,7 @@ import { initializeStats } from './stats.js';
 
 export function Stats() {
     React.useEffect(() => { initializeStats();}, []);
-    const stats = JSON.parse(localStorage.getItem("playerStats"));
+    const stats = JSON.parse(localStorage.getItem("playerStats")) || [];
     const sortedPlayers = [...stats].sort((a, b) => b.wins - a.wins || a.losses - b.losses);
 
     const userName = localStorage.getItem("userName"); 
