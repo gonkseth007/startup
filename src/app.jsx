@@ -4,7 +4,7 @@ import './app.css';
 import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Play } from './play/play';
-import { Stats_Scores } from './stats_scores/stats_scores';
+import { Stats } from './stats/stats.jsx';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
 
@@ -26,7 +26,7 @@ export default function App() {
                       <li className="nav-item"><NavLink className="nav-link" to='play'>Play Game</NavLink></li>
                     )}
                     {authState === AuthState.Authenticated && (
-                      <li className="nav-item"><NavLink className="nav-link" to='stats_scores'>Stats & Scores</NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link" to='stats'>Stats</NavLink></li>
                     )}
                     <li className="nav-item"><NavLink className="nav-link" to='about'>About</NavLink></li>
                 </menu>
@@ -56,9 +56,9 @@ export default function App() {
             } 
           />
           <Route 
-            path='/stats_scores' 
+            path='/stats' 
             element={
-              authState == AuthState.Authenticated ? <Stats_Scores /> : <Navigate to="/" replace />
+              authState == AuthState.Authenticated ? <Stats /> : <Navigate to="/" replace />
             } 
           />
           <Route path='/about' element={<About />} />

@@ -2,7 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 import './lobby.css';
-import { createGame, joinGame } from './game.js'
+import { createGame, joinGame } from './game.js';
+import { initializeStats } from '../stats/stats.js';
 
 const columns = Array.from({ length: 10 }, (_, index) => index + 1);
 
@@ -33,6 +34,7 @@ function Lobby(props) {
 
     const userName = localStorage.getItem("userName");
     const displayName = localStorage.getItem("displayName");
+    React.useEffect(() => { initializeStats();}, []);
 
     function handleJoin(gameID) {
         // const game = joinGame(game, { userName: userName, displayName: displayName });

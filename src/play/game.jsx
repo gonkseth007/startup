@@ -166,16 +166,14 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
     }
 
     function recordPlayerResult(outcome) {
-        const username =
+        const userName =
             localStorage.getItem("userName") ||
             game?.hostPlayer?.userName ||
             "local-player";
 
-        const allStats = JSON.parse(
-            localStorage.getItem("playerStats") || "{}"
-        );
+        const allStats = JSON.parse(localStorage.getItem("playerStats") || "[]");
 
-        const playerStats = allStats[username] ?? { wins: 0, losses: 0 };
+        const playerStats = allStats.find((player) => player.userName === userName) ?? { userName: userName, displayName: displayName, wins: 0, losses: 0 };
 
         const updatedStats = {
             ...playerStats,
@@ -183,13 +181,10 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
             losses: playerStats.losses + (outcome === "loss" ? 1 : 0),
         };
 
-        localStorage.setItem(
-            "playerStats",
-            JSON.stringify({
-            ...allStats,
-            [username]: updatedStats,
-            })
-        );
+        const updatedAllStats = allStats.some((player) => player.userName === userName)
+            ? allStats.map((player) => player.userName === userName ? updatedStats : player)
+            : [...allStats, updatedStats]
+        localStorage.setItem("playerStats", JSON.stringify(updatedAllStats));
     }
 
     function saveGame(updatedGame) {
