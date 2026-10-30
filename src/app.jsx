@@ -1,13 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Play } from './play/play';
-import { Stats_Scores } from './stats_scores/stats_scores';
+import { Stats } from './stats/stats.jsx';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 
 export default function App() {
+  const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+  const [displayName, setDisplayName] = React.useState(localStorage.getItem('displayName') || '');
+  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
@@ -16,8 +22,12 @@ export default function App() {
                 <h4>Pokemon Battleship</h4>
                 <menu className="navbar-nav">
                     <li className="nav-item"><NavLink className="nav-link" to=''>Home</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link" to='play'>Play Game</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link" to='stats_scores'>Stats & Scores</NavLink></li>
+                    {authState === AuthState.Authenticated && (
+                      <li className="nav-item"><NavLink className="nav-link" to='play'>Play Game</NavLink></li>
+                    )}
+                    {authState === AuthState.Authenticated && (
+                      <li className="nav-item"><NavLink className="nav-link" to='stats'>Stats</NavLink></li>
+                    )}
                     <li className="nav-item"><NavLink className="nav-link" to='about'>About</NavLink></li>
                 </menu>
                 <hr />
@@ -25,9 +35,32 @@ export default function App() {
         </header>
 
         <Routes>
-          <Route path='/' element={<Login />} exact />
-          <Route path='/play' element={<Play />} />
-          <Route path='/stats_scores' element={<Stats_Scores />} />
+          <Route path='/' 
+            element={
+              <Login 
+                userName={userName}
+                displayName={displayName}
+                authState={authState}
+                onAuthChange={(userName, displayName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                  setDisplayName(displayName);
+                }}
+              />
+            } exact 
+          />
+          <Route 
+            path='/play' 
+            element={
+              authState == AuthState.Authenticated ? <Play userName={userName} /> : <Navigate to="/" replace />
+            } 
+          />
+          <Route 
+            path='/stats' 
+            element={
+              authState == AuthState.Authenticated ? <Stats /> : <Navigate to="/" replace />
+            } 
+          />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
