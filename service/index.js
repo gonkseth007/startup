@@ -8,7 +8,6 @@ const path = require('path');
 const app = express();
 const authCookieName = 'token';
 let users = [];
-let stats = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -24,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Serve up the front-end static content hosting
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 // Router for service endpoints
 var apiRouter = express.Router();

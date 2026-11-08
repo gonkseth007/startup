@@ -92,6 +92,17 @@ h4 {
   margin-right: 2px;
 }
 
+.btn-secondary {
+  --bs-btn-bg: #e6ac5a;          /* Custom Background */
+  --bs-btn-border-color: #e6ac5a;  /* Custom Border */
+  --bs-btn-color: #297383;
+  
+  --bs-btn-hover-bg: #cd7b29;    /* Custom Hover States */
+  --bs-btn-hover-border-color: #cd7b29;
+  --bs-btn-hover-color: #297383;
+  --bs-btn-active-bg: #cd7b29;
+}
+
 .body-primary {
   background-color: #b4e6ee;
   color: black;

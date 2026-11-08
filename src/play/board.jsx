@@ -1,15 +1,15 @@
 import React from 'react';
-import { PlayState } from './playState';
+import { pokemonByShip, pokemonByShot } from './ships.js';
 
 import './board.css';
 
 const rowLabels = "ABCDEFGHIJ".split("");
 const columns = Array.from({ length: 10 }, (_, index) => index + 1);
 
-function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, previewCells, interactive, rejectShotCells }) {
+function Board({ onCellClick, boardType = "host", showShips = true, coord1, coord2, board, previewCells, interactive, rejectShotCells, pokemonSprites = {} }) {
 
     return (
-        <table>
+        <table className="battleship-board">
             <thead>
                 <tr>
                     <th aria-label="Row and column labels"></th>
@@ -40,14 +40,18 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
 
 
                             let cellClass = "unguessed";
+                            let imagePokemon = null;
                             if (isEndpoint || isPreview) {
                                 cellClass = "selected"
                             } else if (cell?.shot === "hit") {
                                 cellClass = "hit";
+                                imagePokemon = pokemonByShot.hit;
                             } else if (cell?.shot === "miss") {
-                                cellClass = "miss";
+                                // cellClass = "miss";
+                                imagePokemon = pokemonByShot.miss;
                             } else if (showShips && cell?.shipID) {
                                 cellClass = `ship-${cell.shipID}`;
+                                imagePokemon = pokemonByShip[cell.shipID];
                             }
                         
                         
@@ -62,13 +66,22 @@ function Board({ onCellClick, boardType = "host", showShips = true, coord1, coor
                                         onClick={() => onCellClick(rowIndex, column - 1)}
                                         className={`cell-svg ${cellClass}`}
                                     >
-                                        <svg
-                                            aria-hidden="true"
-                                            viewBox="0 0 100 100"
-                                            width="25"
-                                            height="25"
-                                        >
-                                        </svg>
+                                         {imagePokemon && pokemonSprites[imagePokemon] ? (
+                                            <img
+                                                className="pokemon-cell-image"
+                                                src={pokemonSprites[imagePokemon]}
+                                                alt=""
+                                                aria-hidden="true"
+                                                draggable="false"
+                                            />
+                                        ) : (
+                                            <svg
+                                                aria-hidden="true"
+                                                viewBox="0 0 100 100"
+                                                width="25"
+                                                height="25"
+                                            />
+                                        )}
                                     </button>
                                 </td>
                             );

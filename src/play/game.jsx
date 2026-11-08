@@ -3,11 +3,64 @@ import Button from 'react-bootstrap/Button';
 import Board from './board.jsx';
 import { PlayState } from './playState';
 import { parseCoordinate, getValidPlacements, formatCoordinate, placeShip, applyShot, createRandomFleetBoard, hasFleetBeenSunk } from './board.js';
-import { shipTypes } from './ships.js';
+import { shipTypes, pokemonNames } from './ships.js';
 import { chooseRandomGuess } from './ai.js';
+
+const pokemonSpriteCacheKey = 'battleshipPokemonSpriteUrls';
+
+function readPokemonSpriteCache() {
+    try {
+        return JSON.parse(localStorage.getItem(pokemonSpriteCacheKey) || '{}');
+    } catch (_error) {
+        return {};
+    }
+}
 
 export function Game({playState, onSetupDone, onReturnToLobby }) {
     const [game, setGame] = useState(() => JSON.parse(localStorage.getItem("currentGame")));
+    const [pokemonSprites, setPokemonSprites] = useState(readPokemonSpriteCache);
+
+     useEffect(() => {
+        let cancelled = false;
+
+        async function loadPokemonSprites() {
+            const cachedSprites = readPokemonSpriteCache();
+            if (!cancelled) setPokemonSprites(cachedSprites);
+
+            const namesToFetch = pokemonNames.filter((name) => !cachedSprites[name]);
+            const results = await Promise.allSettled(namesToFetch.map(async (name) => {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+                if (!response.ok) throw new Error(`PokéAPI request failed for ${name}`);
+
+                const pokemon = await response.json();
+                const spriteUrl = pokemon.sprites?.front_default;
+                if (!spriteUrl) throw new Error(`No default sprite found for ${name}`);
+
+                return [name, spriteUrl];
+            }));
+
+            const nextSprites = { ...cachedSprites };
+            results.forEach((result) => {
+                if (result.status === 'fulfilled') {
+                    const [name, spriteUrl] = result.value;
+                    nextSprites[name] = spriteUrl;
+                } else {
+                    console.error(result.reason);
+                }
+            });
+
+            try {
+                localStorage.setItem(pokemonSpriteCacheKey, JSON.stringify(nextSprites));
+            } catch (_error) {
+                // The sprites still work for this session if browser storage is unavailable.
+            }
+
+            if (!cancelled) setPokemonSprites(nextSprites);
+        }
+
+        loadPokemonSprites();
+        return () => { cancelled = true; };
+    }, []);
 
     const board = game?.boards?.host;
     const [guess, setGuess] = React.useState('');
@@ -163,28 +216,6 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
 
         recordPlayerResult(outcome);
     }
-
-    // function recordPlayerResult(outcome) {
-    //     const userName =
-    //         localStorage.getItem("userName") ||
-    //         game?.hostPlayer?.userName ||
-    //         "local-player";
-
-    //     const allStats = JSON.parse(localStorage.getItem("playerStats") || "[]");
-
-    //     const playerStats = allStats.find((player) => player.userName === userName) ?? { userName: userName, displayName: displayName, wins: 0, losses: 0 };
-
-    //     const updatedStats = {
-    //         ...playerStats,
-    //         wins: playerStats.wins + (outcome === "win" ? 1 : 0),
-    //         losses: playerStats.losses + (outcome === "loss" ? 1 : 0),
-    //     };
-
-    //     const updatedAllStats = allStats.some((player) => player.userName === userName)
-    //         ? allStats.map((player) => player.userName === userName ? updatedStats : player)
-    //         : [...allStats, updatedStats]
-    //     localStorage.setItem("playerStats", JSON.stringify(updatedAllStats));
-    // }
 
     async function saveStat(outcome) {
         const response = await fetch('/api/stat', {
@@ -405,6 +436,7 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
                 <Board 
                     onCellClick={handleBoardCellClick} 
                     boardType="host" showShips={showShips} 
+                    pokemonSprites={pokemonSprites}
                     coord1={coord1}
                     coord2={coord2}
                     board={visibleBoard}
