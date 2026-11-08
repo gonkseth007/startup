@@ -11,6 +11,7 @@ export function Login({ userName, displayName, authState, onAuthChange }) {
   return (
     <main className="container-fluid text-center body-primary">
         <div>
+            {authState === AuthState.Unknown && <p>Checking your login...</p>}
             {authState !== AuthState.Unknown && <h1 id="welcome">Welcome to Pokemon Battleship!</h1>}
             {authState === AuthState.Authenticated && (
                 <Authenticated userName={userName} displayName={displayName} onLogout={() => onAuthChange(userName, displayName, AuthState.Unauthenticated)} />

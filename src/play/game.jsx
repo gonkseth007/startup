@@ -164,26 +164,47 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
         recordPlayerResult(outcome);
     }
 
+    // function recordPlayerResult(outcome) {
+    //     const userName =
+    //         localStorage.getItem("userName") ||
+    //         game?.hostPlayer?.userName ||
+    //         "local-player";
+
+    //     const allStats = JSON.parse(localStorage.getItem("playerStats") || "[]");
+
+    //     const playerStats = allStats.find((player) => player.userName === userName) ?? { userName: userName, displayName: displayName, wins: 0, losses: 0 };
+
+    //     const updatedStats = {
+    //         ...playerStats,
+    //         wins: playerStats.wins + (outcome === "win" ? 1 : 0),
+    //         losses: playerStats.losses + (outcome === "loss" ? 1 : 0),
+    //     };
+
+    //     const updatedAllStats = allStats.some((player) => player.userName === userName)
+    //         ? allStats.map((player) => player.userName === userName ? updatedStats : player)
+    //         : [...allStats, updatedStats]
+    //     localStorage.setItem("playerStats", JSON.stringify(updatedAllStats));
+    // }
+
+    async function saveStat(outcome) {
+        const response = await fetch('/api/stat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ outcome }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Could not save game result (${response.status})');
+        }
+
+        return response.json();
+    }
+
     function recordPlayerResult(outcome) {
-        const userName =
-            localStorage.getItem("userName") ||
-            game?.hostPlayer?.userName ||
-            "local-player";
-
-        const allStats = JSON.parse(localStorage.getItem("playerStats") || "[]");
-
-        const playerStats = allStats.find((player) => player.userName === userName) ?? { userName: userName, displayName: displayName, wins: 0, losses: 0 };
-
-        const updatedStats = {
-            ...playerStats,
-            wins: playerStats.wins + (outcome === "win" ? 1 : 0),
-            losses: playerStats.losses + (outcome === "loss" ? 1 : 0),
-        };
-
-        const updatedAllStats = allStats.some((player) => player.userName === userName)
-            ? allStats.map((player) => player.userName === userName ? updatedStats : player)
-            : [...allStats, updatedStats]
-        localStorage.setItem("playerStats", JSON.stringify(updatedAllStats));
+        saveStat(outcome).catch((error) => {
+            console.error(error);
+            // Show an error message to the player if you want.
+        });
     }
 
     function saveGame(updatedGame) {
@@ -374,13 +395,11 @@ export function Game({playState, onSetupDone, onReturnToLobby }) {
                     <hr />
                 </div>
             )}
-
             {playState === PlayState.Setup && (
                 <div>
                     <div>Place Ship: {selectedShip?.name} ({selectedShip?.size})</div>
                 </div>
             )}
-
             <div>
                 {/* 3rd Party API Call To Be Implemented With Pokemon Images As Boats */}
                 <Board 
