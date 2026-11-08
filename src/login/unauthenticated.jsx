@@ -9,22 +9,81 @@ export function Unauthenticated(props) {
   const [displayName, setDisplayName] = React.useState(props.displayName);
   const [password, setPassword] = React.useState('');
   const [displayError, setDisplayError] = React.useState(null);
+  const [submitting, setSubmitting] = React.useState(false);
+
+  function completeLogin(user) {
+    localStorage.setItem('userName', user.email);
+    localStorage.setItem('displayName', user.displayName);
+    props.onLogin(user.email, user.displayName);
+  }
 
   async function loginUser() {
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('displayName', displayName);
-    props.onLogin(userName, displayName);
+    setDisplayError(null);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userName, password }),
+      });
+
+      const body = await response.json();
+
+      if (!response.ok) {
+        setDisplayError(
+          response.status === 401
+            ? 'Incorrect username or password.'
+            : body.msg || 'Login failed.'
+        );
+        return;
+      }
+
+      completeLogin(body);
+    } catch {
+      setDisplayError('Could not connect to the server.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   async function createUser() {
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('displayName', displayName);
-    props.onLogin(userName, displayName);
+    setDisplayError(null);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('/api/auth/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: userName,
+          displayName,
+          password,
+        }),
+      });
+
+      const body = await response.json();
+
+      if (!response.ok) {
+        setDisplayError(
+          response.status === 409
+            ? 'That username already exists.'
+            : body.msg || 'Registration failed.'
+        );
+        return;
+      }
+
+      completeLogin(body);
+    } catch (_error) {
+      setDisplayError('Could not connect to the server.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
     <>
-      <form>
+      <form onSubmit={(event) => event.preventDefault()}>
         <h3>Login or Register</h3>
         <div className="input-group my-3">
             <span className="input-group-text">Username:</span>
@@ -38,8 +97,8 @@ export function Unauthenticated(props) {
             <span className="input-group-text">Password:&nbsp;</span>
             <input className="form-control rounded-end" type="password" placeholder="mypassword123" onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <Button variant="primary" onClick={() => loginUser()} disabled={!userName || !displayName || !password}>Login</Button>
-        <Button variant="primary" onClick={() => createUser()} disabled={!userName || !displayName || !password}>Register</Button>
+        <Button variant="primary" onClick={() => loginUser()} disabled={!userName || !password || submitting}>Login</Button>
+        <Button variant="primary" onClick={() => createUser()} disabled={!userName || !displayName || !password || submitting}>Register</Button>
         {/* <div>
           <div className='input-group mb-3'>
             <span className='input-group-text'>@</span>

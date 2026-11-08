@@ -1,10 +1,59 @@
+
 .cell-svg.unguessed { fill: none; }
 .cell-svg.hit { background-color: #9d3434; border-color: rgb(118, 46, 46); }
-.cell-svg.miss { background-color: rgb(210, 209, 209); border-color: grey; }
+/* .cell-svg.miss { background-color: rgb(210, 209, 209); border-color: grey; } */
 .cell-svg.selected { background-color: #297383; border-color: #539ae2; }
 
-.cell-svg.ship-destroyer { background-color: sandybrown; border-color: orange; }
+/* .cell-svg.ship-destroyer { background-color: sandybrown; border-color: orange; }
 .cell-svg.ship-submarine { background-color: forestgreen; border-color: darkgreen; }
 .cell-svg.ship-cruiser { background-color: mediumslateblue; border-color: mediumpurple; }
 .cell-svg.ship-battleship { background-color: lightseagreen; border-color: mediumturquoise; }
-.cell-svg.ship-carrier { background-color: gold; border-color: goldenrod; }
+.cell-svg.ship-carrier { background-color: gold; border-color: goldenrod; } */
+.cell-svg.hit,
+.cell-svg.miss,
+.cell-svg.ship-destroyer,
+.cell-svg.ship-submarine,
+.cell-svg.ship-cruiser,
+.cell-svg.ship-battleship,
+.cell-svg.ship-carrier {
+    background-color: #539ae2;
+    border-color: #297383;
+}
+
+.pokemon-cell-image {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    object-fit: contain;
+    /* image-rendering: pixelated; */
+    transform: scale(1.35);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.battleship-board {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.battleship-board td {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.battleship-board .cell-svg {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}

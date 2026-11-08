@@ -12,8 +12,7 @@ export function Play(props) {
     const userName = props.userName;
 
     const [gameState, setInGame] = React.useState(localStorage.getItem('gameState') || 'lobby');
-    const [guess, setGuess] = React.useState('');
-    const currentPlayState = gameState == 'lobby' ? PlayState.InLobby : (gameState == 'setup' ? PlayState.Setup : PlayState.PlayingGame);
+    const currentPlayState = gameState === 'lobby' ? PlayState.InLobby : (gameState === 'setup' ? PlayState.Setup : PlayState.PlayingGame);
     const [playState, setPlayState] = React.useState(currentPlayState);
 
     function joinGame(game) {

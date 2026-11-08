@@ -6,6 +6,26 @@ export const shipTypes = [
   { id: "carrier", name: "Aircraft Carrier", size: 5 },
 ];
 
+// Pokémon shown in each ship's unhit cells on your own board.
+export const pokemonByShip = {
+  destroyer: 'totodile',
+  submarine: 'krabby',
+  cruiser: 'piplup',
+  battleship: 'froakie',
+  carrier: 'mudkip',
+};
+
+// Pokémon shown for the result of a shot.
+export const pokemonByShot = {
+  hit: 'squirtle',
+  miss: 'magikarp',
+};
+
+export const pokemonNames = [...new Set([
+  ...Object.values(pokemonByShip),
+  ...Object.values(pokemonByShot),
+])];
+
 export function createShips() {
   return shipTypes.map((ship) => ({
     ...ship,

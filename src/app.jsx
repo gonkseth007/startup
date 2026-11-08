@@ -11,8 +11,40 @@ import { AuthState } from './login/authState';
 export default function App() {
   const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
   const [displayName, setDisplayName] = React.useState(localStorage.getItem('displayName') || '');
-  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
-  const [authState, setAuthState] = React.useState(currentAuthState);
+  const [authState, setAuthState] = React.useState(AuthState.Unknown);
+  // const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  // const [authState, setAuthState] = React.useState(currentAuthState);
+
+  React.useEffect(() => {
+    let cancelled = false;
+
+    async function restoreLogin() {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (!response.ok) throw new Error('No valid login cookie');
+
+        const user = await response.json();
+        if (cancelled) return;
+
+        localStorage.setItem('userName', user.email);
+        localStorage.setItem('displayName', user.displayName);
+        setUserName(user.email);
+        setDisplayName(user.displayName);
+        setAuthState(AuthState.Authenticated);
+      } catch (_error) {
+        if (cancelled) return;
+
+        localStorage.removeItem('userName');
+        localStorage.removeItem('displayName');
+        setUserName('');
+        setDisplayName('');
+        setAuthState(AuthState.Unauthenticated);
+      }
+    }
+
+    restoreLogin();
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <BrowserRouter>
@@ -43,8 +75,15 @@ export default function App() {
                 authState={authState}
                 onAuthChange={(userName, displayName, authState) => {
                   setAuthState(authState);
-                  setUserName(userName);
-                  setDisplayName(displayName);
+                  if (authState === AuthState.Unauthenticated) {
+                    setUserName('');
+                    setDisplayName('');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('displayName');
+                  } else {
+                    setUserName(userName);
+                    setDisplayName(displayName);
+                  }
                 }}
               />
             } exact 
